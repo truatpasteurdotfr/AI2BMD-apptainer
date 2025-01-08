@@ -28,7 +28,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        recipe: ["Apptainer"]
+        recipe: ["Singularity"]
 
     steps:
       - name: Checkout repository
