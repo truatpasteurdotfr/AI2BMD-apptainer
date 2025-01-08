@@ -56,7 +56,7 @@ jobs:
         run: |
          ls 
          if [ -f "${{ matrix.recipe }}" ]; then
-            singularity build container.sif ${{ matrix.recipe }}
+            apptainer build container.sif ${{ matrix.recipe }}
             tag=$(echo "${recipe/Singularity\./}")
             if [ "$tag" == "Singularity" ]; then
                 tag=latest
@@ -76,6 +76,6 @@ jobs:
           keepgoing: ${{ env.keepgoing }}
         run: |         
             if [[ "${keepgoing}" == "true" ]]; then
-                echo ${{ secrets.GITHUB_TOKEN }} | singularity remote login -u ${{ secrets.GHCR_USERNAME }} --password-stdin oras://ghcr.io
-                singularity push container.sif oras://ghcr.io/${GITHUB_REPOSITORY}:${tag}
+                echo ${{ secrets.GITHUB_TOKEN }} | apptainer remote login -u ${{ secrets.GHCR_USERNAME }} --password-stdin oras://ghcr.io
+                apptainer push container.sif oras://ghcr.io/${GITHUB_REPOSITORY}:${tag}
             fi
